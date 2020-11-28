@@ -1,10 +1,8 @@
 package me.srinjoy;
 
-import com.jagrosh.discordipc.IPCClient;
-import com.jagrosh.discordipc.IPCListener;
-import com.jagrosh.discordipc.entities.RichPresence;
-import com.jagrosh.discordipc.entities.pipe.PipeStatus;
-import com.jagrosh.discordipc.exceptions.NoDiscordClientException;
+import club.minnced.discord.rpc.DiscordEventHandlers;
+import club.minnced.discord.rpc.DiscordRPC;
+import club.minnced.discord.rpc.DiscordRichPresence;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,29 +10,31 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.time.OffsetDateTime;
 
+// 781179867479539742
 public class Main extends Application {
-
-    static IPCClient client = new IPCClient(781938132047757364L);
-    static RichPresence.Builder builder = new RichPresence.Builder()
-                                .setDetails("Playing Discord RCP app")
-                                .setStartTimestamp(OffsetDateTime.now())
-                                .setLargeImage("disco", "Discord RPC");
+    public static DiscordRPC lib = DiscordRPC.INSTANCE;
+    public static String clientIDString;
+    public static final DiscordRichPresence presence = new DiscordRichPresence();
+    public static final DiscordEventHandlers handlers = new DiscordEventHandlers();
     static {
-        client.setListener(new IPCListener() {
-            @Override
-            public void onReady(IPCClient client) {
-                client.sendRichPresence(builder.build());
+        handlers.ready = user -> System.out.println(user.username + " Ready!!!");
+        lib.Discord_Initialize(clientIDString = "781938132047757364", handlers,false, null);
+        presence.details = "Playing Discord RCP app";
+        presence.state = "idle";
+        presence.largeImageKey = "disco";
+        presence.largeImageText = "Discord RPC";
+        presence.startTimestamp = System.currentTimeMillis() / 1000;
+        lib.Discord_UpdatePresence(presence);
+        new Thread(() -> {
+            while (!Thread.currentThread().isInterrupted()){
+                lib.Discord_RunCallbacks();
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException ignored) {}
             }
-        });
-        try {
-            client.connect();
-        } catch (NoDiscordClientException e) {
-            e.printStackTrace();
-        }
+        }, "RPC-Callback-Handler").start();
     }
-
     public static void main(String[] args) {
         launch(args);
     }
@@ -47,11 +47,8 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         primaryStage.setOnCloseRequest(event -> {
-            System.out.println("Closing...");
-            if (client != null && client.getStatus() == PipeStatus.CONNECTED) {
-                client.close();
-                System.out.println("Client Disconnected");
-            }
+            lib.Discord_Shutdown();
+            System.exit(0);
         });
     }
 }

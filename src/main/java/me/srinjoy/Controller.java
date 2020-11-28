@@ -1,20 +1,13 @@
 package me.srinjoy;
 
-import com.jagrosh.discordipc.IPCClient;
-import com.jagrosh.discordipc.IPCListener;
-import com.jagrosh.discordipc.entities.RichPresence;
-import com.jagrosh.discordipc.entities.pipe.PipeStatus;
-import com.jagrosh.discordipc.exceptions.NoDiscordClientException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-import java.time.OffsetDateTime;
-
 import static me.srinjoy.Main.*;
 
-public class Controller implements IPCListener {
+public class Controller{
     @FXML public Button connect;
     @FXML public Button disconnect;
     @FXML public TextField clientID;
@@ -23,52 +16,39 @@ public class Controller implements IPCListener {
     @FXML public TextField largeImageText;
     @FXML public TextField smallImageName;
     @FXML public TextField smallImageText;
-    private static String detailsString, largeImageNameString, largeImageTextString, smallImageNameString, smallImageTextString;
+    @FXML public TextField state;
 
     @FXML public void setConnect(ActionEvent event){
-        if (client.getStatus() == PipeStatus.CONNECTED) client.close();
-        detailsString = details.getText();
-        largeImageNameString = largeImageName.getText();
-        largeImageTextString = largeImageText.getText();
-        smallImageNameString = smallImageName.getText();
-        smallImageTextString = smallImageText.getText();
         try {
-            client = new IPCClient(Long.parseLong(clientID.getText()));
-            client.setListener(this);
-            client.connect();
-        } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(Long.parseLong(clientID.getText()));
+        } catch (NumberFormatException e) {
+            return;
         }
+        if (!clientIDString.equals(clientID.getText())) {
+            lib.Discord_Shutdown();
+            lib.Discord_Initialize(clientID.getText(), handlers, false, null);
+            clientIDString = clientID.getText();
+        }
+        presence.details = details.getText();
+        presence.state = state.getText();
+        presence.largeImageKey = largeImageName.getText();
+        presence.largeImageText = largeImageText.getText();
+        presence.smallImageKey = smallImageName.getText();
+        presence.smallImageText = smallImageText.getText();
+        presence.startTimestamp = System.currentTimeMillis() / 1000;
+        lib.Discord_UpdatePresence(presence);
     }
     @FXML public void setDisconnect(ActionEvent event){
-        if (client.getStatus() == PipeStatus.CONNECTED) {
-            client.close();
-            client = new IPCClient(781938132047757364L);
-            detailsString = "Playing Discord RCP app";
-            largeImageNameString = "disco";
-            largeImageTextString = "Discord RPC";
-            smallImageNameString = "";
-            smallImageTextString = "";
-            client.setListener(this);
-            try {
-                client.connect();
-            } catch (NoDiscordClientException e) {
-                e.printStackTrace();
-            }
+        if (!clientIDString.equals("781938132047757364")){
+            lib.Discord_Shutdown();
+            lib.Discord_Initialize("781938132047757364", handlers, false, null);
+            clientIDString = "781938132047757364";
         }
-        else System.out.println("Already disconnected");
-    }
-
-    @Override
-    public void onReady(IPCClient client) {
-        largeImageNameString = largeImageNameString.isEmpty() ? "   ": largeImageNameString;
-        largeImageTextString = largeImageTextString.isEmpty() ? "   ": largeImageTextString;
-        smallImageNameString = smallImageNameString.isEmpty() ? "   ": smallImageNameString;
-        smallImageTextString = smallImageTextString.isEmpty() ? "   ": smallImageTextString;
-                 builder.setDetails(detailsString)
-                        .setLargeImage(largeImageNameString, largeImageTextString)
-                        .setSmallImage(smallImageNameString, smallImageTextString)
-                        .setStartTimestamp(OffsetDateTime.now());
-        client.sendRichPresence(builder.build());
+        presence.details = "Playing Discord RCP app";
+        presence.state = "idle";
+        presence.largeImageKey = "disco";
+        presence.largeImageText = "Discord RPC";
+        presence.startTimestamp = System.currentTimeMillis() / 1000;
+        lib.Discord_UpdatePresence(presence);
     }
 }

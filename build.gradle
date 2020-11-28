@@ -14,7 +14,7 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    implementation 'com.jagrosh:DiscordIPC:0.4'
+    implementation 'club.minnced:java-discord-rpc:2.0.2'
 }
 javafx {
     version = '15.0.1'

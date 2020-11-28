@@ -18,14 +18,15 @@
                </font>
             </TextField>
             <TextField fx:id="details" promptText="Details" />
+            <TextField fx:id="state" promptText="State" />
             <HBox spacing="10.0">
                <children>
-                  <TextField fx:id="largeImageName" promptText="Large Image Name" />
+                  <TextField fx:id="largeImageName" promptText="Large Image Key" />
                   <TextField fx:id="largeImageText" promptText="Large Image Text" />
                </children></HBox>
             <HBox spacing="10.0">
                <children>
-                  <TextField fx:id="smallImageName" promptText="Small Image Name" />
+                  <TextField fx:id="smallImageName" promptText="Small Image Key" />
                   <TextField fx:id="smallImageText" promptText="Small Image Text" />
                </children></HBox>
             <HBox spacing="10.0">
