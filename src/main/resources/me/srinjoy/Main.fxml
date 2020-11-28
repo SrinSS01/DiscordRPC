@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.srinjoy.Controller">
+   <children>
+      <VBox layoutX="100.0" layoutY="37.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <children>
+            <TextField fx:id="clientID" promptText="Client ID">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="details" promptText="Details" />
+            <HBox spacing="10.0">
+               <children>
+                  <TextField fx:id="largeImageName" promptText="Large Image Name" />
+                  <TextField fx:id="largeImageText" promptText="Large Image Text" />
+               </children></HBox>
+            <HBox spacing="10.0">
+               <children>
+                  <TextField fx:id="smallImageName" promptText="Small Image Name" />
+                  <TextField fx:id="smallImageText" promptText="Small Image Text" />
+               </children></HBox>
+            <HBox spacing="10.0">
+               <children>
+                  <Button fx:id="connect" mnemonicParsing="false" onAction="#setConnect" text="Connect" />
+                  <Button fx:id="disconnect" mnemonicParsing="false" onAction="#setDisconnect" text="Disconnect" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
