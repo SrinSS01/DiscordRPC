@@ -33,6 +33,7 @@
                <children>
                   <Button fx:id="connect" mnemonicParsing="false" onAction="#setConnect" text="Connect" />
                   <Button fx:id="disconnect" mnemonicParsing="false" onAction="#setDisconnect" text="Disconnect" />
+                  <Button fx:id="refresh" mnemonicParsing="false" onAction="#setRefresh" text="Refresh" />
                </children>
             </HBox>
          </children>

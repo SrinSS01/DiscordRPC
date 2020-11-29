@@ -15,12 +15,11 @@ import java.io.IOException;
 // 781179867479539742
 public class Main extends Application {
     public static DiscordRPC lib = DiscordRPC.INSTANCE;
-    public static String clientIDString;
     public static final DiscordRichPresence presence = new DiscordRichPresence();
     public static final DiscordEventHandlers handlers = new DiscordEventHandlers();
     static {
         handlers.ready = user -> System.out.println(user.username + " Ready!!!");
-        lib.Discord_Initialize(clientIDString = "781938132047757364", handlers,false, null);
+        lib.Discord_Initialize("781938132047757364", handlers,false, null);
         presence.details = "Playing Discord RCP app";
         presence.state = "idle";
         presence.largeImageKey = "disco";
@@ -47,6 +46,7 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+        primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("logo.png")));
         primaryStage.setOnCloseRequest(event -> {
             lib.Discord_Shutdown();
