@@ -8,14 +8,44 @@ plugins {
 group 'me.srinjoy'
 version '1.0'
 
-jar {
-    manifest {
-        attributes 'Main-class': 'me.srinjoy.Start'
+//jar {
+//    manifest {
+//        attributes 'Main-class': 'me.srinjoy.Start'
+//    }
+//    from {
+//        configurations.runtimeClasspath.collect {
+//            it.isDirectory() ? it : zipTree(it)
+//        }
+//    }
+//}
+
+jlink {
+    launcher {
+        name = 'DiscordRPC'
     }
-    from {
-        configurations.runtimeClasspath.collect {
-            it.isDirectory() ? it : zipTree(it)
+    jpackage {
+        installerType = project.findProperty('installerType')
+        switch (installerType) {
+            case 'msi':
+                imageOptions += ['--icon', 'src/main/resources/me/srinjoy/logo.ico']
+                installerOptions += [
+                        '--win-per-user-install', '--win-dir-chooser',
+                        '--win-menu', '--win-shortcut'
+                ]
+                break
+            case 'pkg':
+                imageOptions += ['--icon', 'src/main/resources/me/srinjoy/logo.icns']
+                break
+            case 'deb': case 'rpm':
+                imageOptions += ['--icon', 'src/main/resources/me/srinjoy/logo.png']
+                installerOptions += ['--linux-shortcut']
         }
+    }
+}
+
+jpackage {
+    doFirst {
+        project.getProperty('installerType') // throws exception if its missing
     }
 }
 
