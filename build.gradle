@@ -8,16 +8,16 @@ plugins {
 group 'me.srinjoy'
 version '1.0'
 
-//jar {
-//    manifest {
-//        attributes 'Main-class': 'me.srinjoy.Start'
-//    }
-//    from {
-//        configurations.runtimeClasspath.collect {
-//            it.isDirectory() ? it : zipTree(it)
-//        }
-//    }
-//}
+jar {
+    manifest {
+        attributes 'Main-class': 'me.srinjoy.Start'
+    }
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
 
 repositories {
     jcenter()
