@@ -27,7 +27,8 @@ How to set the Rich presence?
 8. click connect  
 ![alt text](https://www.dropbox.com/s/waz24uedyh9bi0f/9.png?raw=1)
 
-Now you'll see it showing in your status (Remember you need to have the discord app for this to work, it'll not work if you have it open in web browser  
+Now you'll see it showing in your status  
+(Remember you need to have the discord app for this to work, it'll not work if you have it open in web browser)  
 ![alt text](https://www.dropbox.com/s/930jt9xqze29blb/10.png?raw=1)
 
 You can set image Text also  
