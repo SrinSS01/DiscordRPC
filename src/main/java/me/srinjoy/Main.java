@@ -9,10 +9,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
-// 781179867479539742
+import static me.srinjoy.Controller.*;
+
 public class Main extends Application {
     public static DiscordRPC lib = DiscordRPC.INSTANCE;
     public static final DiscordRichPresence presence = new DiscordRichPresence();
@@ -20,7 +20,7 @@ public class Main extends Application {
     static {
         handlers.ready = user -> System.out.println(user.username + " Ready!!!");
         lib.Discord_Initialize("781938132047757364", handlers,false, null);
-        presence.details = "Playing Discord RCP app";
+        presence.details = "Playing Discord RPC app";
         presence.state = "idle";
         presence.largeImageKey = "disco";
         presence.largeImageText = "Discord RPC";
@@ -42,13 +42,14 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
-        primaryStage.setTitle("Discord RCP");
+        primaryStage.setTitle("Discord RPC");
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("logo.png")));
         primaryStage.setOnCloseRequest(event -> {
+            writeData();
             lib.Discord_Shutdown();
             System.exit(0);
         });

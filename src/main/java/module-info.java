@@ -3,5 +3,6 @@ open module me.srinoy {
     requires javafx.fxml;
     requires javafx.graphics;
     requires javafx.controls;
+    requires json.simple;
     exports me.srinjoy;
 }

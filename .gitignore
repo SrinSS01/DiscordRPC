@@ -6,3 +6,4 @@ build
 gradle
 src/test
 out
+presenceData.json
