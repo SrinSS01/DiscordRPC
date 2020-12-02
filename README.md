@@ -1,4 +1,4 @@
-[![release](https://img.shields.io/badge/release-1.0-blue)](https://github.com/SrinjoySS01/DiscordRPC/releases/tag/1.0)
+[![release](https://img.shields.io/badge/release-1.0-blue)](https://github.com/SrinjoySS01/DiscordRPC/releases/tag/1.0) [![release1.2](https://img.shields.io/badge/release-1.2-red)](https://github.com/SrinjoySS01/DiscordRPC/releases/tag/1.2)
 # DiscordRPC
 Discord Rich Presence app to set custom rich presence for the client using [java-discord-rpc](https://github.com/MinnDevelopment/java-discord-rpc)
 
