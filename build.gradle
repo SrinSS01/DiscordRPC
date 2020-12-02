@@ -25,7 +25,6 @@ jlink {
     }
     jpackage {
         installerType = project.findProperty('installerType')
-        if (installerType == null) installerType = 'pkg'
         switch (installerType) {
             case 'msi':
                 imageOptions += ['--icon', 'src/main/resources/me/srinjoy/logo.ico']

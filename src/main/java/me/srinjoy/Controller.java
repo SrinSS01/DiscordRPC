@@ -31,9 +31,12 @@ public class Controller {
     @FXML public Button clear;
     @FXML public ListView<String> history;
     static HashMap<String, HashMap<String, String>> parsedPresenceData = new HashMap<>();
-    static final File presenceData = new File("presenceData.json");
+    static File USERDATA = new File(System.getProperty("user.home") + "/UserData");
+    static File presenceData = new File(USERDATA, "presenceData.json");
     @SuppressWarnings("unchecked")
     @FXML void initialize(){
+        if (!USERDATA.exists()) System.out.println(USERDATA.mkdir());
+        System.out.println(USERDATA.getAbsolutePath());
         if (!presenceData.exists()) try {
             System.out.println(presenceData.createNewFile());
             FileWriter writer = new FileWriter(presenceData);
